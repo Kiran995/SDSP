@@ -5,6 +5,7 @@ import numpy as np
 from model import Model
 from data_processing import Processing
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 sns.set()
 st.title("My Data Science Project")
