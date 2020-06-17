@@ -1,3 +1,6 @@
+### Deploy URL
+https://stormy-garden-91420.herokuapp.com/
+
 ### Deploy heroku app
 Step 1:
 `heroku login`
