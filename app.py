@@ -86,11 +86,20 @@ else:
     # #modelling step
     #
     # pred = test_df.iloc[0]
+    results = pd.DataFrame(columns=['model_name', 'alpha', 'errors'])
 
-    use_model = st.sidebar.selectbox(
+    model_name = st.sidebar.selectbox(
         "Select Model?", ['LinearRegression', 'LassoRegression'])
-    mod = Model(df, use_model)
+
+    alpha = 0
+    alpha = st.number_input('Input your sentence here:')
+
+    if model_name == "LinearRegression":
+        mod = Model(df, model_name, alpha)
+    else:
+        mod = Model(df, model_name, alpha)
     model, errors = mod.main()
+
     # import pdb; pdb.set_trace()
     # predictions = model.predict([[pred.Street, pred.HouseStyle, OverallQual, pred.Functional, pred.MiscFeature, LotArea,
     #                               Year, pred.FirstFlrSF, pred.SecondFlrSt, pred.YrSold, bed, pred.KitchenAbvGr]])
@@ -103,3 +112,7 @@ else:
             int(predictions)))
         st.subheader("Your range of prediction is USD {} - USD {}".format(
             int(predictions-errors), int(predictions+errors)))
+
+        results = results.append({'model_name': model_name, 'alpha': alpha, 'errors': errors}, ignore_index=True)
+        print(results)
+        st.table(results)

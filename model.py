@@ -6,19 +6,23 @@ from sklearn.linear_model import LinearRegression, Lasso
 import numpy as np
 
 class Model:
-    def __init__(self, df, use_model):
+    def __init__(self, df, model_name, alpha):
         self.df = df
-        self.use_model = use_model
+        self.model_name = model_name
+        self.alpha = alpha
 
-    def main(self):
+    def _fetch_data(self):
         X = self.df.drop('SalePrice', axis=1)
         y = self.df['SalePrice']
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=45)
+        return X, y
 
+    def main(self):
+        X, y = self._fetch_data()
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=45)
         # import your model
-        if self.use_model == 'LassoRegression':
-            model = Lasso(alpha=0.1)
-        elif self.use_model == 'LinearRegression':
+        if self.model_name == 'LassoRegression':
+            model = Lasso(alpha=self.alpha)
+        elif self.model_name == 'LinearRegression':
             model = LinearRegression()
         # fitting and predict your model
         model.fit(X_train, y_train)
