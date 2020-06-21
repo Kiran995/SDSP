@@ -29,7 +29,6 @@ if mode == "Visualization":
     st.pyplot()
 else:
     st.header("Machine Learning Model")
-    st.text("Insert model here")
 
     # import the data
     df = pd.read_csv("train.csv")
@@ -71,7 +70,7 @@ else:
     LotArea = st.slider("What is your square feet of Area?", int(
         df.LotArea.min()), int(df.LotArea.max()), int(df.LotArea.mean()))
     # OverallQual = st.sidebar("Quality of house?", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    OverallQual = st.slider("Quality of house?", int(df.OverallQual.min()), int(
+    OverallQual = st.number_input("Quality of house?", int(df.OverallQual.min()), int(
         df.OverallQual.max()), int(df.OverallQual.mean()))
     bed = st.slider("How many bedrooms?", int(df.BedroomAbvGr.min()), int(
         df.BedroomAbvGr.max()), int(df.BedroomAbvGr.mean()))
@@ -92,7 +91,7 @@ else:
         "Select Model?", ['LinearRegression', 'LassoRegression'])
 
     alpha = 0
-    alpha = st.number_input('Input your sentence here:')
+    alpha = st.number_input('Input required alpha here:')
 
     if model_name == "LinearRegression":
         mod = Model(df, model_name, alpha)
