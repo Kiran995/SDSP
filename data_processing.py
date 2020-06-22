@@ -6,7 +6,7 @@ class Processing:
     def _convert_to_cat(self, col):
         return self.df[col].astype('category').cat.codes
 
-    def main(self):
+    def main(self): ##fetch data
         for col in self.cat_col:
             self.df[col] = self._convert_to_cat(col)
 

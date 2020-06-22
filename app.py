@@ -53,18 +53,25 @@ else:
     # input the numbers
     LotArea = st.slider("What is your square feet of Area?", int(
         processed_df.LotArea.min()), int(processed_df.LotArea.max()), int(processed_df.LotArea.mean()))
-
-    # OverallQual = st.sidebar("Quality of house?", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    OverallQual = st.slider("Quality of house?", int(processed_df.OverallQual.min()), int(
+    OverallQual = st.number_input("Quality of house?", int(processed_df.OverallQual.min()), int(
         processed_df.OverallQual.max()), int(processed_df.OverallQual.mean()))
     bed = st.slider("How many bedrooms?", int(processed_df.BedroomAbvGr.min()), int(
         processed_df.BedroomAbvGr.max()), int(processed_df.BedroomAbvGr.mean()))
     Year = st.slider("Which year built?", int(processed_df.YearBuilt.min()), int(
         processed_df.YearBuilt.max()), int(processed_df.YearBuilt.mean()))
 
-    use_model = st.sidebar.selectbox(
+    results = pd.DataFrame(columns=['model_name', 'alpha', 'errors'])
+
+    model_name = st.sidebar.selectbox(
         "Select Model?", ['LinearRegression', 'LassoRegression'])
-    mod = Model(processed_df, use_model)
+
+    alpha = 0
+    alpha = st.number_input('Input required alpha here:')
+
+    if model_name == "LinearRegression":
+        mod = Model(processed_df, model_name, alpha)
+    else:
+        mod = Model(processed_df, model_name, alpha)
     model, errors = mod.main()
 
     predictions = model.predict([[np.int64(1), np.int64(2), OverallQual, int(6), int(-1), LotArea,
@@ -76,3 +83,7 @@ else:
             int(predictions)))
         st.subheader("Your range of prediction is USD {} - USD {}".format(
             int(predictions-errors), int(predictions+errors)))
+
+        results = results.append(
+            {'model_name': model_name, 'alpha': alpha, 'errors': errors}, ignore_index=True)
+        st.table(results)
