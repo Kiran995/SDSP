@@ -1,6 +1,6 @@
 class Processing:
     def __init__(self, df, cat_col):
-        self.df = df
+        self.df = df.copy()
         self.cat_col = cat_col
 
     def _convert_to_cat(self, col):
