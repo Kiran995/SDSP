@@ -1,4 +1,3 @@
-# import plotly_express as px
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -23,7 +22,7 @@ if mode == "Visualization":
     st.header("Data Viewer")
     columns = list(df.columns)
     selections = st.multiselect(
-        "Select the columns you want to display", columns, columns)
+        "Select the columns you want to display", columns)
     if selections:
         st.dataframe(df[selections].drop_duplicates())
     else:
@@ -51,14 +50,30 @@ else:
         "Now let's find out how much the prices when we choosing some parameters.")
 
     # input the numbers
-    LotArea = st.slider("What is your square feet of Area?", int(
-        processed_df.LotArea.min()), int(processed_df.LotArea.max()), int(processed_df.LotArea.mean()))
-    OverallQual = st.number_input("Quality of house?", int(processed_df.OverallQual.min()), int(
-        processed_df.OverallQual.max()), int(processed_df.OverallQual.mean()))
-    bed = st.slider("How many bedrooms?", int(processed_df.BedroomAbvGr.min()), int(
-        processed_df.BedroomAbvGr.max()), int(processed_df.BedroomAbvGr.mean()))
-    Year = st.slider("Which year built?", int(processed_df.YearBuilt.min()), int(
-        processed_df.YearBuilt.max()), int(processed_df.YearBuilt.mean()))
+    LotArea = st.slider(
+        "What is your square feet of Area?",
+        int(processed_df.LotArea.min()),
+        int(processed_df.LotArea.max()),
+        int(processed_df.LotArea.mean())
+    )
+    OverallQual = st.number_input(
+        "Quality of house?",
+        int(processed_df.OverallQual.min()),
+        int(processed_df.OverallQual.max()),
+        int(processed_df.OverallQual.mean())
+    )
+    bed = st.slider(
+        "How many bedrooms?",
+        int(processed_df.BedroomAbvGr.min()),
+        int(processed_df.BedroomAbvGr.max()),
+        int(processed_df.BedroomAbvGr.mean())
+    )
+    Year = st.slider(
+        "Which year built?",
+        int(processed_df.YearBuilt.min()),
+        int(processed_df.YearBuilt.max()),
+        int(processed_df.YearBuilt.mean())
+    )
 
     results = pd.DataFrame(columns=['model_name', 'alpha', 'errors'])
 
